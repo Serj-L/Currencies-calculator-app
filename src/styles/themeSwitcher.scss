@@ -1,0 +1,40 @@
+.theme-switcher {
+  color: var(--clr-text);
+  background-color: transparent;
+  padding: 0.2em;
+  border: 2px solid transparent;
+  border-radius: $radius-input;
+  outline: none;
+  cursor: pointer;
+  transition: $transition;
+
+  &__content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.3em;
+  }
+
+  svg{
+    width: 26px;
+    aspect-ratio: 1;
+    line-height: 1;
+  }
+
+  span {
+    font-size: clamp($fs-normal, 4vw, $fs-md);
+    white-space: nowrap;
+  }
+
+  &:focus-visible {
+    border-color: var(--clr-ui);
+  }
+}
+
+body[data-theme-type='light'] .theme-switcher__content--dark {
+  display: none;
+}
+
+body[data-theme-type='dark'] .theme-switcher__content--light {
+  display: none;
+}

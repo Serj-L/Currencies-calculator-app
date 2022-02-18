@@ -4,10 +4,24 @@ import {
 } from '../types';
 
 export const getCurrentThemeType = (): ThemeTypes => {
-  return localStorage.getItem(LocalStorageKeys.THEMETYPE) as ThemeTypes || ThemeTypes.LIGHT;
+  const savedThemeType = localStorage.getItem(LocalStorageKeys.THEMETYPE) as ThemeTypes;
+
+  if (savedThemeType) {
+    return savedThemeType;
+  }
+
+  if (window.matchMedia && window.window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    return ThemeTypes.DARK;
+  }
+
+  return ThemeTypes.LIGHT;
 };
 
-export const setInitialThemeTypeOnElement = (element: HTMLElement): void => {
+export const setInitialThemeTypeOnElement = (element: Element | null): void => {
+  if (!element) {
+    return;
+  }
+
   const currentThemeType = getCurrentThemeType();
 
   if (element.getAttribute(ThemeTypes.ELEMENTATTR) === currentThemeType) {

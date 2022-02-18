@@ -7,14 +7,14 @@
   left: 50%;
   transform: translateX(-50%);
   border-radius: 0 0 6px 6px;
-  background-color: $clr-white;
+  background-color: var(--clr-ui);
   padding: 10px;
   transition: 0.6s;
   z-index: 50;
   box-shadow: $shadow-sm;
 
   &__text {
-    color: $clr-warning;
+    color: var(--clr-text);
   }
 
   &--active {

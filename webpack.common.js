@@ -5,7 +5,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Dotenv = require('dotenv-webpack');
-//const CopyPlugin = require('copy-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: './src/index.ts',
@@ -63,8 +63,8 @@ module.exports = {
     }),
     new ForkTsCheckerWebpackPlugin(),
     new Dotenv(),
-    /*  new CopyPlugin({
-       patterns: [{ from: 'src/assets', to: 'assets' }],
-     }), */
+    new CopyPlugin({
+      patterns: [{ from: 'src/assets', to: 'assets' }],
+    }),
   ],
 };

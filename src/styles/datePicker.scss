@@ -1,0 +1,43 @@
+.date-picker {
+  display: flex;
+  justify-content: flex-end;
+
+  &__label {
+    font-weight: $fw-bold;
+  }
+
+  &__input {
+    color: var(--clr-text);
+    background-color: var(--clr-bg-ui);
+    padding: 0.3em;
+    border: 2px solid transparent;
+    border-radius: $radius-input;
+    outline: none;
+    transition: $transition;
+
+    &:focus {
+      border-color: var(--clr-text);
+    }
+  }
+}
+
+::-webkit-datetime-edit-day-field:focus,
+::-webkit-datetime-edit-month-field:focus,
+::-webkit-datetime-edit-year-field:focus {
+  background-color: var(--clr-ui);
+}
+
+::-webkit-calendar-picker-indicator {
+  background-size: 1em;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}
+
+body[data-theme-type='light'] ::-webkit-calendar-picker-indicator {
+  background-image: url('./assets/images/calendar-days-light.svg');
+}
+
+body[data-theme-type='dark'] ::-webkit-calendar-picker-indicator {
+  background-image: url('./assets/images/calendar-days-dark.svg');
+}
