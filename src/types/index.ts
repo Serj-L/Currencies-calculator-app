@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-
 export enum LocalStorageKeys {
   MAIN = 'CurrenciesCalculatorApp',
 }
@@ -19,6 +18,8 @@ export interface ILocalStorageAppData {
   currencyAmount: number,
   currenciesList: string[],
 }
+
+export type dataKey = keyof ILocalStorageAppData;
 export interface INbrbExchangeRatesData {
   Cur_ID: number,
   Date: string,

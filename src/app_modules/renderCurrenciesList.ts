@@ -33,7 +33,7 @@ export const renderCurrenciesList = (params: IRenderCurrenciesListParams): void 
   }
 
   const currenciesListToRender = currenciesData.filter(currency => currenciesList.has(currency.Cur_Abbreviation));
-  const baseCurrencyData: INbrbExchangeRatesExtendedData | undefined = currenciesListToRender.find(currency => currency.Cur_Abbreviation === baseCurrencyAbbreviation);
+  const baseCurrencyData: INbrbExchangeRatesExtendedData | undefined = currenciesData.find(currency => currency.Cur_Abbreviation === baseCurrencyAbbreviation);
 
   if (!baseCurrencyData) {
     return;
@@ -51,17 +51,19 @@ export const renderCurrenciesList = (params: IRenderCurrenciesListParams): void 
     if (!templateCurrencyAmountLabel || !templateCurrencyAmountInput || !templateCurrencyRateValue || !templateDeleteCurrencyButton) {
       return;
     }
+    templateCurrencyAmountInput.setAttribute('data-currency-abbreviation', `${currency.Cur_Abbreviation}`);
 
     templateCurrencyAmountLabel.textContent = `${currency.Cur_Name_Eng} (${currency.Cur_Abbreviation})`;
     templateCurrencyAmountLabel.setAttribute('data-currency-abbreviation', `${currency.Cur_Abbreviation}`);
 
-    templateCurrencyAmountInput.value = `${(baseCurrencyData.ratePerOneUnit / currency.ratePerOneUnit * currencyAmount).toFixed(2)}`;
+    templateCurrencyAmountInput.value = (baseCurrencyData.ratePerOneUnit / currency.ratePerOneUnit * currencyAmount).toFixed(2);
     templateCurrencyAmountInput.setAttribute('data-currency-abbreviation', `${currency.Cur_Abbreviation}`);
     if (currency.Cur_Abbreviation === baseCurrencyAbbreviation) {
       templateCurrencyAmountInput.autofocus = true;
     }
 
     templateCurrencyRateValue.textContent = `1 ${currency.Cur_Abbreviation} = ${(currency.ratePerOneUnit / baseCurrencyData.ratePerOneUnit).toFixed(4)} ${baseCurrencyAbbreviation}`;
+    templateCurrencyRateValue.setAttribute('data-currency-abbreviation', `${currency.Cur_Abbreviation}`);
 
     templateDeleteCurrencyButton.disabled = baseCurrencies.has(currency.Cur_Abbreviation);
     templateDeleteCurrencyButton.setAttribute('data-currency-abbreviation', `${currency.Cur_Abbreviation}`);

@@ -1,0 +1,89 @@
+.currency-card {
+  position: relative;
+  background-color: var(--clr-ui);
+  padding: 0.8em 0.5em;
+  border: 2px solid transparent;
+  border-radius: $radius;
+  box-shadow: $shadow-sm;
+
+  &:focus-within {
+    border-color: var(--clr-text);
+  }
+
+  &__amount-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2em;
+    margin-bottom: 0.5em;
+  }
+
+  &__label {
+    font-weight: $fw-bold;
+  }
+
+  &__input {
+    color: var(--clr-text);
+    background-color: var(--clr-bg-ui);
+    padding: 0.3em;
+    border: 2px solid var(--clr-ui-hover);
+    border-radius: $radius-input;
+    outline: none;
+    transition: $transition;
+
+    &:focus {
+      border-color: var(--clr-text);
+    }
+  }
+
+  &__currency-rate-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2em;
+  }
+
+  &__rate {
+   font-weight: $fw-bold;
+   margin-right: 0.3em;
+  }
+
+  &__value {
+    white-space: nowrap;
+  }
+
+  &__delete-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0.1em;
+    right: 0.1em;
+    width: 1.1em;
+    height: 1.1em;
+    font-size: $fs-lg;
+    font-weight: $fw-bold;
+    line-height: 1;
+    color: var(--clr-text);
+    background: none;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    outline: none;
+    transition: $transition;
+    cursor: pointer;
+
+    &:disabled {
+      display: none;
+    }
+
+    &:hover {
+      @media (hover: hover) and (pointer: fine) {
+        color: $clr-warning;
+      }
+    }
+
+    &:focus-visible {
+      color: $clr-warning;
+      border-color: $clr-warning;
+    }
+  }
+}
+

@@ -30,9 +30,7 @@ export const setInitialThemeTypeOnElement = (element: Element | null): void => {
 
 export const changeThemeType = (currentThemeType: ThemeTypes, element: HTMLElement): void => {
   const newThemeType = currentThemeType === ThemeTypes.LIGHT ? ThemeTypes.DARK : ThemeTypes.LIGHT;
-  const dataFromLocalStorage = getDataFromLocalStorage(LocalStorageKeys.MAIN);
-  const newLocalStorageData = { ...dataFromLocalStorage, themeType: newThemeType };
 
   element.setAttribute(ThemeElementAttribute.NAME, newThemeType);
-  setDataToLocalStorage(LocalStorageKeys.MAIN, newLocalStorageData);
+  setDataToLocalStorage(LocalStorageKeys.MAIN, 'themeType', newThemeType);
 };

@@ -1,0 +1,160 @@
+.add-currencies {
+  position: relative;
+
+  &__btn {
+    display: flex;
+    align-items: center;
+    gap: 0.2em;
+    color: var(--clr-text);
+    background-color: transparent;
+    border: none;
+    outline: none;
+    margin-bottom: 0.3em;
+    cursor: pointer;
+
+    &:not(&--active):hover > .add-currencies__icon {
+      @media (hover: hover) and (pointer: fine) {
+        border-color: var(--clr-text);
+      }
+    }
+
+    &:focus-visible > .add-currencies__icon {
+      border-color: var(--clr-text);
+    }
+
+    &--active > .add-currencies__icon {
+      transform: rotate(45deg);
+      color: $clr-warning;
+      border-color: $clr-warning;
+    }
+  }
+
+  &__icon {
+    width: 1.1em;
+    height: 1.1em;
+    font-size: $fs-xl;
+    font-weight: $fw-bold;
+    color: var(--clr-text);
+    line-height: 1;
+    background-color: var(--clr-bg-ui);
+    border-radius: 100%;
+    border: 2px solid transparent;
+    transition: $transition;
+  }
+
+  &__btn-title {
+    font-weight: $fw-bold;
+  }
+
+  &__form {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    min-width: Min(250px, 80vw);
+    max-width: Min(350px, 80vw);
+    background-color: var(--clr-bg-ui);
+    box-shadow: $shadow-sm;
+    transform: scaleY(0);
+    opacity: 0;
+    transform-origin: top;
+    transition: opacity 0.1s ease-in 0.1s, transform $transition ease-in;
+    z-index: 2;
+
+    &--active {
+      transform: scaleY(1);
+      opacity: 1;
+    }
+
+  }
+
+  &__fields-wrapper {
+    max-height: Min(227px, 70vh);
+    overflow: auto;
+  }
+
+  &__checkbox-wrapper {
+    position: relative;
+    padding: 0.5em;
+  }
+
+  &__input {
+    position: absolute;
+    left: -9999px;
+
+    &:checked ~ .add-currencies__label {
+      color: $clr-gray-blue-200;
+    }
+
+    &:checked ~ .add-currencies__label::before,
+    &:focus-visible ~ .add-currencies__label::before {
+      background-color: var(--clr-ui-hover);
+    }
+  }
+
+  &__label {
+    transition: $transition;
+    cursor: pointer;
+
+    &:hover {
+      @media (hover: hover) and (pointer: fine) {
+        color: $clr-white;
+      }
+    }
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-color: transparent;
+      z-index: -1;
+    }
+
+    &::after {
+      border-bottom: 1px solid var(--clr-ui);
+    }
+
+    &:hover::before {
+      @media (hover: hover) and (pointer: fine) {
+        background-color: var(--clr-ui-hover);
+      }
+    }
+
+    &:focus-visible {
+      color: $clr-white;
+      background-color: var(--clr-ui-hover);
+    }
+  }
+
+  &__form-btns {
+    display: flex;
+    align-self: flex-end;
+    padding: 0.8em 0.5em 0.5em;
+    gap: 0.4em;
+  }
+
+  &__reset-btn,
+  &__submit-btn {
+    color: var(--clr-text);
+    font-weight: $fw-bold;
+    background-color: transparent;
+    padding: 0.4em 0.6em;
+    border-radius: $radius-input;
+    border: 2px solid var(--clr-ui-hover);
+    outline: none;
+    transition: $transition;
+    cursor: pointer;
+
+    &:hover {
+      @media (hover: hover) and (pointer: fine) {
+        border-color: var(--clr-text);
+        background-color: var(--clr-bg);
+      }
+    }
+
+    &:focus-visible {
+      border-color: var(--clr-text);
+      background-color: var(--clr-bg);
+    }
+  }
+}

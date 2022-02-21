@@ -38,7 +38,21 @@
   <main class="main">
     <div class="calculator">
       <div class="calculator__controls">
-        <button class="calculator__add-currencies-btn">Add currency</button>
+        <div class="add-currencies">
+          <button class="add-currencies__btn" id="add-currencies-btn">
+            <div class="add-currencies__icon">+</div>
+            <span class="add-currencies__btn-title">Add currencies</span>
+          </button>
+          <form class="add-currencies__form" id="add-currencies-form">
+            <div class="add-currencies__fields-wrapper" id="available-currencies-list">
+              <!-- renderAddCurrenciesList -->
+            </div>
+            <div class="add-currencies__form-btns">
+              <button class="add-currencies__reset-btn" type="reset" id="add-currencies-reset-btn">Cancel</button>
+              <button class="add-currencies__submit-btn" type="submit" id="add-currencies-submit-btn">Add</button>
+            </div>
+          </form>
+        </div>
         <div class="date-picker">
           <label class="date-picker__label">
             Exchange rates<sup>*</sup> on date:
@@ -50,7 +64,9 @@
         <span class="calculator__base-currency-title">Base currency:</span>
         <span class="calculator__base-currency-abbreviation" id="base-currency-abbreviation"></span>
       </div>
-      <ul class="calculator__currencies-list" id="currencies-list"></ul>
+      <ul class="calculator__currencies-list" id="currencies-list">
+        <!-- renderCurrencyList -->
+      </ul>
     </div>
   </main>
   <footer class="footer">
@@ -65,16 +81,17 @@
     <p class="snack-bar__text">Test</p>
   </div>
   <template id="template">
-    <li class="calculator__currency" id="currency-list-item">
-      <div class="calculator__amount-wrapper">
-        <span class="calculator__amount-label" data-amount-label>US Dollar (USD)</span>
-        <input class="calculator__amount-input" type="number" name="ammount" placeholder="0.00" data-amount-input>
+    <!-- currency list item (currency card) -->
+    <li class="currency-card" id="currency-list-item" data-currency-list-item>
+      <div class="currency-card__amount-wrapper">
+        <span class="currency-card__label" data-amount-label>US Dollar (USD)</span>
+        <input class="currency-card__input" type="number" name="ammount" placeholder="0.00" data-amount-input>
       </div>
-      <div class="calculator__currency-rate-wrapper">
-        <span class="calculator__currency-rate">Exchange rate: </span>
-        <span class="calculator__currency-rate-value" data-currency-rate-value>1 USD = 1 USD</span>
+      <div class="currency-card__rate-wrapper">
+        <span class="currency-card__rate">Exchange rate: </span>
+        <span class="currency-card__value" data-currency-rate-value>1 USD = 1 USD</span>
       </div>
-    <button class="calculator__currency-delete-btn" data-delete-currency-btn>&times;</button>
+    <button class="currency-card__delete-btn" data-delete-currency-btn>&times;</button>
   </li>
   </template>
 </body>
