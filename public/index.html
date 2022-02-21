@@ -37,14 +37,20 @@
   </header>
   <main class="main">
     <div class="calculator">
-      <div class="date-picker">
-        <label class="date-picker__label">
-          Exchange rates<sup>*</sup> on date:
-          <input class="date-picker__input" type="date" name="date" id="date-picker">
-        </label>
+      <div class="calculator__controls">
+        <button class="calculator__add-currencies-btn">Add currency</button>
+        <div class="date-picker">
+          <label class="date-picker__label">
+            Exchange rates<sup>*</sup> on date:
+            <input class="date-picker__input" type="date" name="date" id="date-picker">
+          </label>
+        </div>
+      </div>
+      <div class="calculator__base-currency" >
+        <span class="calculator__base-currency-title">Base currency:</span>
+        <span class="calculator__base-currency-abbreviation" id="base-currency-abbreviation"></span>
       </div>
       <ul class="calculator__currencies-list" id="currencies-list"></ul>
-      <button class="fetch-data-btn">Fetch data</button>
     </div>
   </main>
   <footer class="footer">
@@ -58,15 +64,17 @@
   <div class="snack-bar">
     <p class="snack-bar__text">Test</p>
   </div>
-  <template id="currency-list-item">
-    <li class="calculator__currency">
-      <label class="calculator__amount-wrapper">
-        US Dollar (USD)
-        <input class="calculator__amount-input" type="number" name="ammount" placeholder="0.00">
-      </label>
-      <span class="calculator__currency-rate">Exchange rate: </span>
-      <span class="calculator__currency-rate-value">1 USD = 1 USD</span>
-    <button class="calculator__currency-delete-btn">&times;</button>
+  <template id="template">
+    <li class="calculator__currency" id="currency-list-item">
+      <div class="calculator__amount-wrapper">
+        <span class="calculator__amount-label" data-amount-label>US Dollar (USD)</span>
+        <input class="calculator__amount-input" type="number" name="ammount" placeholder="0.00" data-amount-input>
+      </div>
+      <div class="calculator__currency-rate-wrapper">
+        <span class="calculator__currency-rate">Exchange rate: </span>
+        <span class="calculator__currency-rate-value" data-currency-rate-value>1 USD = 1 USD</span>
+      </div>
+    <button class="calculator__currency-delete-btn" data-delete-currency-btn>&times;</button>
   </li>
   </template>
 </body>

@@ -73,15 +73,29 @@ body {
 .calculator {
   width: 100%;
   max-width: $content-max-width;
-  border: 2px solid var(--clr-ui-hover);
-  border-radius: $radius;
   padding: 0.5em;
+
+  &__controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1em;
+  }
+
+  &__base-currency {
+    text-align: right;
+    padding-block: 0.2em;
+  }
+
+  &__base-currency-abbreviation {
+    font-weight: $fw-bold;
+  }
 
   &__currencies-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     justify-content: center;
-    gap: 0.6em;
+    gap: 0.8em;
     padding-block: 0.5em;
     list-style: none;
   }
@@ -103,8 +117,11 @@ body {
     display: flex;
     flex-direction: column;
     gap: 0.2em;
-    font-weight: $fw-bold;
     margin-bottom: 0.5em;
+  }
+
+  &__amount-label {
+    font-weight: $fw-bold;
   }
 
   &__amount-input {
@@ -121,9 +138,19 @@ body {
     border-color: var(--clr-text);
   }
 
+  &__currency-rate-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2em;
+  }
+
   &__currency-rate {
    font-weight: $fw-bold;
    margin-right: 0.3em;
+  }
+
+  &__currency-rate-value {
+    white-space: nowrap;
   }
 
   &__currency-delete-btn {

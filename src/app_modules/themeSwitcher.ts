@@ -1,20 +1,17 @@
 import {
   LocalStorageKeys,
   ThemeTypes,
+  ThemeElementAttribute,
 } from '../types';
+import {
+  getDataFromLocalStorage,
+  setDataToLocalStorage,
+} from '../api/localStorage';
 
 export const getCurrentThemeType = (): ThemeTypes => {
-  const savedThemeType = localStorage.getItem(LocalStorageKeys.THEMETYPE) as ThemeTypes;
+  const dataFromLocalStorage = getDataFromLocalStorage(LocalStorageKeys.MAIN);
 
-  if (savedThemeType) {
-    return savedThemeType;
-  }
-
-  if (window.matchMedia && window.window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    return ThemeTypes.DARK;
-  }
-
-  return ThemeTypes.LIGHT;
+  return dataFromLocalStorage.themeType;
 };
 
 export const setInitialThemeTypeOnElement = (element: Element | null): void => {
@@ -24,16 +21,18 @@ export const setInitialThemeTypeOnElement = (element: Element | null): void => {
 
   const currentThemeType = getCurrentThemeType();
 
-  if (element.getAttribute(ThemeTypes.ELEMENTATTR) === currentThemeType) {
+  if (element.getAttribute(ThemeElementAttribute.NAME) === currentThemeType) {
     return;
   }
 
-  document.body.setAttribute(ThemeTypes.ELEMENTATTR, currentThemeType);
+  document.body.setAttribute(ThemeElementAttribute.NAME, currentThemeType);
 };
 
 export const changeThemeType = (currentThemeType: ThemeTypes, element: HTMLElement): void => {
   const newThemeType = currentThemeType === ThemeTypes.LIGHT ? ThemeTypes.DARK : ThemeTypes.LIGHT;
+  const dataFromLocalStorage = getDataFromLocalStorage(LocalStorageKeys.MAIN);
+  const newLocalStorageData = { ...dataFromLocalStorage, themeType: newThemeType };
 
-  element.setAttribute(ThemeTypes.ELEMENTATTR, newThemeType);
-  localStorage.setItem(LocalStorageKeys.THEMETYPE, newThemeType);
+  element.setAttribute(ThemeElementAttribute.NAME, newThemeType);
+  setDataToLocalStorage(LocalStorageKeys.MAIN, newLocalStorageData);
 };
