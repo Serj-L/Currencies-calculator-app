@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "application convert amount to different currencies",
   "main": "index.ts",
+  "homepage": "https://serj-l.github.io/Currencies-calculator-app",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "start": "webpack serve --open --config webpack.dev.js",
     "build": "set NODE_ENV=production && webpack --config webpack.prod.js",
     "test": "echo \"Error: no test specified\" && exit 1"
