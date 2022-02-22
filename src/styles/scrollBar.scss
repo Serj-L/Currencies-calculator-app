@@ -14,3 +14,8 @@
 ::-webkit-scrollbar-button:horizontal:end:increment {
   display: none;
 }
+
+* {
+  scrollbar-color: $clr-gray-blue-300 $clr-gray-blue-50;
+  scrollbar-width: thin;
+}

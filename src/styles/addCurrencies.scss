@@ -4,7 +4,7 @@
   &__btn {
     display: flex;
     align-items: center;
-    gap: 0.2em;
+    gap: 0.4em;
     color: var(--clr-text);
     background-color: transparent;
     border: none;
@@ -18,7 +18,7 @@
       }
     }
 
-    &:focus-visible > .add-currencies__icon {
+    &:not(&--active):focus-visible > .add-currencies__icon {
       border-color: var(--clr-text);
     }
 
@@ -43,7 +43,9 @@
   }
 
   &__btn-title {
+    font-size: $fs-md;
     font-weight: $fw-bold;
+    white-space: nowrap;
   }
 
   &__form {
@@ -58,7 +60,7 @@
     opacity: 0;
     transform-origin: top;
     transition: opacity 0.1s ease-in 0.1s, transform $transition ease-in;
-    z-index: 2;
+    z-index: 1;
 
     &--active {
       transform: scaleY(1);
@@ -70,11 +72,13 @@
   &__fields-wrapper {
     max-height: Min(227px, 70vh);
     overflow: auto;
+    scroll-snap-type: y proximity;
   }
 
   &__checkbox-wrapper {
     position: relative;
     padding: 0.5em;
+    scroll-snap-align: start;
   }
 
   &__input {
@@ -156,5 +160,9 @@
       border-color: var(--clr-text);
       background-color: var(--clr-bg);
     }
+  }
+
+  @media (max-width: 670px) {
+    align-self: flex-start;
   }
 }

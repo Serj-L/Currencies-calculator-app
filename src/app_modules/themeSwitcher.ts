@@ -1,12 +1,13 @@
 import {
+  getDataFromLocalStorage,
+  setDataToLocalStorage,
+} from '../api/localStorage';
+
+import {
   LocalStorageKeys,
   ThemeTypes,
   ThemeElementAttribute,
 } from '../types';
-import {
-  getDataFromLocalStorage,
-  setDataToLocalStorage,
-} from '../api/localStorage';
 
 export const getCurrentThemeType = (): ThemeTypes => {
   const dataFromLocalStorage = getDataFromLocalStorage(LocalStorageKeys.MAIN);

@@ -1,4 +1,8 @@
-import { LocalStorageKeys, ILocalStorageAppData, dataKey } from '../types';
+import {
+  LocalStorageKeys,
+  ILocalStorageAppData,
+  dataKey,
+} from '../types';
 
 export const initializedLocalStorageData = (key: LocalStorageKeys, initialValues: ILocalStorageAppData): void => {
   const data = localStorage.getItem(key);

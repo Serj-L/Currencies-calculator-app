@@ -55,30 +55,37 @@
         </div>
         <div class="date-picker">
           <label class="date-picker__label">
-            Exchange rates<sup>*</sup> on date:
+            Exchange rates on date<sup>*</sup>
             <input class="date-picker__input" type="date" name="date" id="date-picker">
           </label>
         </div>
       </div>
       <div class="calculator__base-currency" >
-        <span class="calculator__base-currency-title">Base currency:</span>
+        <span class="calculator__base-currency-title">Base currency<sup>**</sup></span>
         <span class="calculator__base-currency-abbreviation" id="base-currency-abbreviation"></span>
       </div>
       <ul class="calculator__currencies-list" id="currencies-list">
         <!-- renderCurrencyList -->
+        <li class="calculator__currencies-list-warning">
+          <span class="calculator__currencies-list-warning-text">Ups, something went wrong, try to reload page!</span>
+        </li>
       </ul>
+      <div class="calculator__additional-info">
+        <span class="calculator__additional-text"><sup>*</sup> Calculation of the exchange rate using official exchange rate of the Belarusian ruble against foreign currencies set by the National Bank of the Republic of Belarus on specified date (from 2020/01/01 to present day)</span>
+        <span class="calculator__additional-text"><sup>**</sup> Currrency against which the exchange rates are calculated</span>
+      </div>
     </div>
   </main>
   <footer class="footer">
     <span class="footer__copyright">Serj-L 2022</span>
   </footer>
   <!-- spinner -->
-  <svg class="spinner" viewBox="0 0 50 50">
+  <svg class="spinner" id="spinner" viewBox="0 0 50 50">
     <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
   </svg>
   <!-- snack bar -->
-  <div class="snack-bar">
-    <p class="snack-bar__text">Test</p>
+  <div class="snack-bar" id="snack-bar">
+    <p class="snack-bar__text" id="snack-bar-text"></p>
   </div>
   <template id="template">
     <!-- currency list item (currency card) -->

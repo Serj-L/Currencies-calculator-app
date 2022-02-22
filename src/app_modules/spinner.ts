@@ -1,4 +1,4 @@
-const spinner = document.querySelector('.spinner');
+const spinner = document.getElementById('spinner');
 
 export const setSpinnerActive = (isActive: boolean): void => {
   if (!spinner) {

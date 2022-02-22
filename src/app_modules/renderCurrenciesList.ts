@@ -51,8 +51,6 @@ export const renderCurrenciesList = (params: IRenderCurrenciesListParams): void 
     if (!templateCurrencyAmountLabel || !templateCurrencyAmountInput || !templateCurrencyRateValue || !templateDeleteCurrencyButton) {
       return;
     }
-    templateCurrencyAmountInput.setAttribute('data-currency-abbreviation', `${currency.Cur_Abbreviation}`);
-
     templateCurrencyAmountLabel.textContent = `${currency.Cur_Name_Eng} (${currency.Cur_Abbreviation})`;
     templateCurrencyAmountLabel.setAttribute('data-currency-abbreviation', `${currency.Cur_Abbreviation}`);
 

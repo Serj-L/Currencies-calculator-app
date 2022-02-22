@@ -16,6 +16,18 @@
     &:focus {
       border-color: var(--clr-text);
     }
+
+    @media (max-width: 440px) {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 670px) {
+   align-self: flex-end;
+  }
+
+  @media (max-width: 440px) {
+    align-self: flex-start;
   }
 }
 

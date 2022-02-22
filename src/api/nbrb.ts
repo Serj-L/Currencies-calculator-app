@@ -51,7 +51,13 @@ export const getSpecifedDateExchangeRates = async (date: Date): Promise<INbrbExc
       const { Cur_Name_Eng, Cur_QuotName_Eng, Cur_Name_EngMulti } = cachedCurrenciesData.find(currency => currency.Cur_ID === exchangeRate.Cur_ID) as INbrbCurrenciesData;
       const ratePerOneUnit = exchangeRate.Cur_OfficialRate / exchangeRate.Cur_Scale;
 
-      return { ...exchangeRate, Cur_Abbreviation: exchangeRate.Cur_Abbreviation.toUpperCase(), Cur_Name_Eng, Cur_QuotName_Eng, Cur_Name_EngMulti, ratePerOneUnit };
+      return { ...exchangeRate,
+        Cur_Abbreviation: exchangeRate.Cur_Abbreviation.toUpperCase(),
+        Cur_Name_Eng,
+        Cur_QuotName_Eng,
+        Cur_Name_EngMulti,
+        ratePerOneUnit,
+      };
     });
 
     // add Belarusian ruble info
@@ -70,7 +76,7 @@ export const getSpecifedDateExchangeRates = async (date: Date): Promise<INbrbExc
 
     return extendedExchangeRates;
   } catch (error: any) {
-    snackBarHandler(error.message, 6000);
+    snackBarHandler(error.message, 7000);
   } finally {
     setSpinnerActive(false);
   }

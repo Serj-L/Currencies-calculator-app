@@ -1,5 +1,5 @@
-const snackBar = document.querySelector('.snack-bar');
-const snackBarMessageContainer = document.querySelector('.snack-bar__text');
+const snackBar = document.getElementById('snack-bar');
+const snackBarMessageContainer = document.getElementById('snack-bar-text');
 
 export const snackBarHandler = (message: string, displayDuration: number): void => {
   if (!snackBar || !snackBarMessageContainer) {
