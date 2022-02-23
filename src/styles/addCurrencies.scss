@@ -77,7 +77,6 @@
 
   &__checkbox-wrapper {
     position: relative;
-    padding: 0.5em;
     scroll-snap-align: start;
   }
 
@@ -86,7 +85,7 @@
     left: -9999px;
 
     &:checked ~ .add-currencies__label {
-      color: $clr-gray-blue-200;
+      color: $clr-white;
     }
 
     &:checked ~ .add-currencies__label::before,
@@ -96,6 +95,8 @@
   }
 
   &__label {
+    display: block;
+    padding: 0.5em;
     transition: $transition;
     cursor: pointer;
 
@@ -132,9 +133,8 @@
 
   &__form-btns {
     display: flex;
-    align-self: flex-end;
+    align-self: center;
     padding: 0.8em 0.5em 0.5em;
-    gap: 0.4em;
   }
 
   &__reset-btn,
@@ -142,7 +142,7 @@
     color: var(--clr-text);
     font-weight: $fw-bold;
     background-color: transparent;
-    padding: 0.4em 0.6em;
+    padding: 0.5em 1.2em;
     border-radius: $radius-input;
     border: 2px solid var(--clr-ui-hover);
     outline: none;
@@ -159,6 +159,13 @@
     &:focus-visible {
       border-color: var(--clr-text);
       background-color: var(--clr-bg);
+    }
+
+    &--invisible {
+      width: 0;
+      padding: 0;
+      visibility: hidden;
+      pointer-events: none;
     }
   }
 

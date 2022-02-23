@@ -18,6 +18,7 @@ import {
   renderCurrenciesList,
   renderAddCurrencyList,
   setDatePickerParams,
+  warningElementHandler,
 } from './app_modules';
 
 import {
@@ -31,11 +32,13 @@ import './styles.scss';
 const themeAttributeElement = document.body;
 const changeThemeTypeBtn = document.getElementById('theme-switcher');
 const datePickerElement = document.getElementById('date-picker');
-const currenciesListElement = document.getElementById('currencies-list');
 const baseCurrencyAbbreviationElement = document.getElementById('base-currency-abbreviation');
+const currenciesListElement = document.getElementById('currencies-list');
 const addCurrenciesBtnElement = document.getElementById('add-currencies-btn');
-const addCurrenciesListElement = document.getElementById('add-currencies-form');
-const addCurrenciesResetBtn = document.getElementById('add-currencies-reset-btn');
+const addCurrenciesFormElement = document.getElementById('add-currencies-form');
+const addCurrenciesListElement = document.getElementById('available-currencies-list');
+const addCurrenciesResetBtnElement = document.getElementById('add-currencies-reset-btn');
+const additinalInfoElement = document.getElementById('calculator-additional-info');
 const currentDate = new Date();
 const datePickerMinDate = new Date(2020, 0, 1);
 const initialThemeType = window.matchMedia && window.window.matchMedia('(prefers-color-scheme: dark)').matches ? ThemeTypes.DARK : ThemeTypes.LIGHT;
@@ -76,6 +79,15 @@ getSpecifedDateExchangeRates(currentDate)
     if (currenciesDataFromAPI?.length) {
       currenciesData.push(...currenciesDataFromAPI);
       renderAddCurrencyList(currenciesData, userCurrenciesList);
+      additinalInfoElement?.classList.add('calculator__additional-info--active');
+    } else {
+      warningElementHandler({
+        message: 'Ups, something went wrong &#128533',
+        containerElement: document.getElementById('currencies-list'),
+        tagName: 'li',
+        tagClassName: 'calculator__currencies-list-warning',
+        textTagClassName: 'calculator__currencies-list-warning-text',
+      });
     }
   });
 
@@ -118,7 +130,11 @@ function datePickerHandler(event: Event): void {
         currencyAmount: userCurrencyAmmount,
       });
       if (currenciesDataFromAPI?.length) {
+        currenciesData.length = 0;
         currenciesData.push(...currenciesDataFromAPI);
+        renderAddCurrencyList(currenciesData, userCurrenciesList);
+      } else {
+        datePicker.value = dateToStringConverter(currentDate);
       }
     });
 }
@@ -185,24 +201,63 @@ function currencyAmountInputHandler (event: Event): void {
 const debouncedCurrencyAmountInputHandler = debounce(currencyAmountInputHandler, 400);
 currenciesListElement?.addEventListener('input', (event) => debouncedCurrencyAmountInputHandler(event));
 
-//add currencies open/close list click handler
+//add currencies open/close list button click handler
 addCurrenciesBtnElement?.addEventListener('click', () => {
   addCurrenciesBtnElement.classList.toggle('add-currencies__btn--active');
-  addCurrenciesListElement?.classList.toggle('add-currencies__form--active');
+  addCurrenciesListElement?.scrollTo(0, 0);
+  addCurrenciesFormElement?.classList.toggle('add-currencies__form--active');
+  addCurrenciesResetBtnElement?.click();
 });
-//add currencies close list key up handler
+
+// add currencies close list handlers (Esc key press and click out of specified elements)
 const closeAddCurrenciesList = (): void => {
   addCurrenciesBtnElement?.classList.remove('add-currencies__btn--active');
-  addCurrenciesListElement?.classList.remove('add-currencies__form--active');
+  addCurrenciesFormElement?.classList.remove('add-currencies__form--active');
 };
-addCurrenciesBtnElement?.addEventListener('keyup', (event) => {
+// Esc key press handler
+document.body.addEventListener('keyup', (event: KeyboardEvent): void => {
+  if (!addCurrenciesFormElement?.classList.contains('add-currencies__form--active')) {
+    return;
+  }
   if (event.key === 'Escape') {
     closeAddCurrenciesList();
+    addCurrenciesResetBtnElement?.click();
   }
+});
+// click out of specified elements handler
+document.body.addEventListener('click', (event: Event): void => {
+  if (!event) {
+    return;
+  }
+
+  const targetElement = event.target as HTMLElement | null;
+  const isAddCurrenciesFormActive = addCurrenciesFormElement?.classList.contains('add-currencies__form--active');
+
+  if (!targetElement || !isAddCurrenciesFormActive) {
+    return;
+  }
+
+  const isTargetElementAddCurrenciesBtn = targetElement.closest('button')?.id === 'add-currencies-btn';
+  const isTargetElementAddCurrenciesForm = targetElement.id === 'add-currencies-form';
+  const isTargetElementAddCurrenciesSubmitBtn = targetElement.id === 'add-currencies-submit-btn';
+  const isTargetElementAddCurrenciesResetBtn = targetElement.id === 'add-currencies-reset-btn';
+  const isTargetElementAddCurrenciesLabel = targetElement.id === 'add-currencies-label';
+  const isTargetElementAddCurrenciesCheckbox = 'addCurrenciesCheckbox' in targetElement.dataset;
+
+  if (isTargetElementAddCurrenciesBtn
+    || isTargetElementAddCurrenciesForm
+    || isTargetElementAddCurrenciesCheckbox
+    || isTargetElementAddCurrenciesLabel
+    || isTargetElementAddCurrenciesSubmitBtn
+    || isTargetElementAddCurrenciesResetBtn) {
+    return;
+  }
+  closeAddCurrenciesList();
+  addCurrenciesResetBtnElement?.click();
 });
 
 //add currencies handler
-addCurrenciesListElement?.addEventListener('submit', (event) => {
+addCurrenciesFormElement?.addEventListener('submit', (event) => {
   if (!event || !event.target) {
     return;
   }
@@ -231,11 +286,6 @@ addCurrenciesListElement?.addEventListener('submit', (event) => {
   });
   renderAddCurrencyList(currenciesData, userCurrenciesList);
   setDataToLocalStorage(LocalStorageKeys.MAIN, 'currenciesList', updatedCurrenciesList);
-});
-
-//reset (cancel) add currencies list button handler
-addCurrenciesResetBtn?.addEventListener('click', () => {
-  closeAddCurrenciesList();
 });
 
 // delete currency list item (card) from list button click handler

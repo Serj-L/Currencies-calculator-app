@@ -4,3 +4,4 @@ export { setDatePickerParams } from './datePicker';
 export { getCurrentThemeType, setInitialThemeTypeOnElement, changeThemeType } from './themeSwitcher';
 export { snackBarHandler } from './snackBar';
 export { setSpinnerActive } from './spinner';
+export { warningElementHandler } from './warningElement';

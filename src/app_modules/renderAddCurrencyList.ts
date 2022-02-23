@@ -14,8 +14,8 @@ export const renderAddCurrencyList = (currenciesData: INbrbExchangeRatesExtended
     availableCurrenciesListElement.insertAdjacentHTML(
       'beforeend',
       `<div class="add-currencies__checkbox-wrapper">
-        <input class="add-currencies__input" type="checkbox" id=${currency.Cur_ID}-${currency.Cur_Abbreviation} name=${currency.Cur_Abbreviation}>
-        <label class="add-currencies__label" for=${currency.Cur_ID}-${currency.Cur_Abbreviation} data-currency-abbreviation=${currency.Cur_Abbreviation}>${currency.Cur_Name_Eng} (${currency.Cur_Abbreviation})</label>
+        <input class="add-currencies__input" type="checkbox" id=${currency.Cur_ID}-${currency.Cur_Abbreviation} name=${currency.Cur_Abbreviation} data-add-currencies-checkbox>
+        <label class="add-currencies__label" id="add-currencies-label" for=${currency.Cur_ID}-${currency.Cur_Abbreviation} data-currency-abbreviation=${currency.Cur_Abbreviation}>${currency.Cur_Name_Eng} (${currency.Cur_Abbreviation})</label>
       </div>`,
     );
   });

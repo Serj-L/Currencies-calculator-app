@@ -32,7 +32,17 @@ export const renderCurrenciesList = (params: IRenderCurrenciesListParams): void 
     return;
   }
 
-  const currenciesListToRender = currenciesData.filter(currency => currenciesList.has(currency.Cur_Abbreviation));
+  const currenciesListToRender = currenciesData
+    .filter(currency => currenciesList.has(currency.Cur_Abbreviation))
+    .sort((currA, currB) => {
+      if (!baseCurrencies.has(currA.Cur_Abbreviation) && baseCurrencies.has(currB.Cur_Abbreviation)) {
+        return 1;
+      }
+      if (baseCurrencies.has(currA.Cur_Abbreviation) && !baseCurrencies.has(currB.Cur_Abbreviation)) {
+        return -1;
+      }
+      return 0;
+    });
   const baseCurrencyData: INbrbExchangeRatesExtendedData | undefined = currenciesData.find(currency => currency.Cur_Abbreviation === baseCurrencyAbbreviation);
 
   if (!baseCurrencyData) {
@@ -56,9 +66,6 @@ export const renderCurrenciesList = (params: IRenderCurrenciesListParams): void 
 
     templateCurrencyAmountInput.value = (baseCurrencyData.ratePerOneUnit / currency.ratePerOneUnit * currencyAmount).toFixed(2);
     templateCurrencyAmountInput.setAttribute('data-currency-abbreviation', `${currency.Cur_Abbreviation}`);
-    if (currency.Cur_Abbreviation === baseCurrencyAbbreviation) {
-      templateCurrencyAmountInput.autofocus = true;
-    }
 
     templateCurrencyRateValue.textContent = `1 ${currency.Cur_Abbreviation} = ${(currency.ratePerOneUnit / baseCurrencyData.ratePerOneUnit).toFixed(4)} ${baseCurrencyAbbreviation}`;
     templateCurrencyRateValue.setAttribute('data-currency-abbreviation', `${currency.Cur_Abbreviation}`);

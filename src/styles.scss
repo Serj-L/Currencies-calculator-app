@@ -126,7 +126,13 @@ body {
     flex-direction: column;
     gap: 0.3em;
     padding-top: 0.7em;
+    opacity: 0;
+
+    &--active {
+      opacity: 1;
+    }
   }
+
 
   &__additional-text {
     font-weight: $fw-thin;

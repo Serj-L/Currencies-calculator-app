@@ -5,7 +5,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: $clr-gray-blue-300;
+  background-color: $clr-gray-blue-light-400;
 }
 
 ::-webkit-scrollbar-button:vertical:start:decrement,
@@ -16,6 +16,6 @@
 }
 
 * {
-  scrollbar-color: $clr-gray-blue-300 $clr-gray-blue-50;
+  scrollbar-color: $clr-gray-blue-light-400 $clr-gray-blue-50;
   scrollbar-width: thin;
 }

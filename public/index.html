@@ -37,7 +37,7 @@
   </header>
   <main class="main">
     <div class="calculator">
-      <div class="calculator__controls">
+      <div class="calculator__controls" id="calculator-controls">
         <div class="add-currencies">
           <button class="add-currencies__btn" id="add-currencies-btn">
             <div class="add-currencies__icon">+</div>
@@ -48,8 +48,8 @@
               <!-- renderAddCurrenciesList -->
             </div>
             <div class="add-currencies__form-btns">
-              <button class="add-currencies__reset-btn" type="reset" id="add-currencies-reset-btn">Cancel</button>
               <button class="add-currencies__submit-btn" type="submit" id="add-currencies-submit-btn">Add</button>
+              <button class="add-currencies__reset-btn add-currencies__reset-btn--invisible" type="reset" id="add-currencies-reset-btn">Reset</button>
             </div>
           </form>
         </div>
@@ -66,11 +66,8 @@
       </div>
       <ul class="calculator__currencies-list" id="currencies-list">
         <!-- renderCurrencyList -->
-        <li class="calculator__currencies-list-warning">
-          <span class="calculator__currencies-list-warning-text">Ups, something went wrong, try to reload page!</span>
-        </li>
       </ul>
-      <div class="calculator__additional-info">
+      <div class="calculator__additional-info" id="calculator-additional-info">
         <span class="calculator__additional-text"><sup>*</sup> Calculation of the exchange rate using official exchange rate of the Belarusian ruble against foreign currencies set by the National Bank of the Republic of Belarus on specified date (from 2020/01/01 to present day)</span>
         <span class="calculator__additional-text"><sup>**</sup> Currrency against which the exchange rates are calculated</span>
       </div>

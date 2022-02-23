@@ -1,20 +1,15 @@
 /* typography */
 $family: 'Sora', sans-serif;
-$fs-sx: 0.6rem;
-$fs-sm: 0.8rem;
 $fs-normal: 1rem;
 $fs-md: 1.1rem;
 $fs-lg: 1.5rem;
 $fs-xl: 2rem;
-$fs-xxl: 2.5rem;
 
 $fw-thin: 200;
-$fw-normal: 400;
 $fw-bold: 600;
 
 /* colors */
 $clr-white: hsl(0, 0%, 98%);
-$clr-accent: hsl(220, 98%, 61%);
 $clr-warning: hsl(0, 70%, 55%);
 
 $clr-gray-blue-50: hsl(234, 39%, 85%);
@@ -23,13 +18,13 @@ $clr-gray-blue-200: hsl(233, 11%, 84%);
 $clr-gray-blue-300: hsl(236, 9%, 61%);
 $clr-gray-blue-400: hsl(235, 19%, 35%);
 
+$clr-gray-blue-light-400: hsla(219, 19%, 35%, 0.85);
+
 $clr-blue-300: hsl(234, 11%, 52%);
 $clr-blue-400: hsl(233, 14%, 35%);
 $clr-blue-500: hsl(237, 14%, 26%);
 $clr-blue-600: hsl(235, 24%, 19%);
 $clr-blue-800: hsl(235, 21%, 11%);
-
-$clr-gradient: linear-gradient(135deg, hsl(192, 100%, 67%), hsl(280, 87%, 65%));
 
 /* other */
 $content-max-width: 992px;
