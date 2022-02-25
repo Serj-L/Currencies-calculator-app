@@ -8,7 +8,12 @@ export const snackBarHandler = (message: string, displayDuration: number): void 
   snackBarMessageContainer.textContent = message;
   snackBar.classList.add('snack-bar--active');
 
-  setTimeout(() => {
+  const timeoutID = setTimeout(() => {
     snackBar.classList.remove('snack-bar--active');
   }, displayDuration);
+
+  snackBar?.addEventListener('click', () => {
+    snackBar.classList.remove('snack-bar--active');
+    window.clearTimeout(timeoutID);
+  });
 };

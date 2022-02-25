@@ -1,0 +1,40 @@
+.scroll-top {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity $transition;
+
+  &--active {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  &__button {
+    position: fixed;
+    right: 2rem;
+    bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--clr-text);
+    width: 2.3em;
+    aspect-ratio: 1;
+    background-color: var(--clr-bg-ui);
+    border: 2px solid transparent;
+    border-radius: 50%;
+    box-shadow: $shadow-sm;
+    outline: none;
+    cursor: pointer;
+    transition: $transition;
+    z-index: 10;
+
+    &:hover,
+    &:focus-visible {
+      @media (hover: hover) and (pointer: fine) {
+        border-color: var(--clr-text);
+
+      }
+    }
+  }
+}

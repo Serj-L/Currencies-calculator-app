@@ -19,6 +19,8 @@ import {
   renderAddCurrencyList,
   setDatePickerParams,
   warningElementHandler,
+  snackBarHandler,
+  scrollTopActivate,
 } from './app_modules';
 
 import {
@@ -65,6 +67,8 @@ setInitialThemeTypeOnElement(themeAttributeElement);
 if (datePickerElement) {
   setDatePickerParams(datePickerElement, currentDate, datePickerMinDate, currentDate);
 }
+
+scrollTopActivate(300);
 
 // render currencies list
 getSpecifedDateExchangeRates(currentDate)
@@ -114,10 +118,12 @@ function datePickerHandler(event: Event): void {
   if (minDate && date < minDate) {
     datePicker.value = dateToStringConverter(minDate);
     date = minDate;
+    snackBarHandler(`Entered date can't be earlier than ${datePicker.min}`, 10000);
   }
   if (maxDate && date > maxDate) {
     datePicker.value = dateToStringConverter(maxDate);
     date = maxDate;
+    snackBarHandler(`Entered date can't be later than ${datePicker.max}`, 10000);
   }
 
   getSpecifedDateExchangeRates(date)

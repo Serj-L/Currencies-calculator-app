@@ -5,3 +5,4 @@ export { getCurrentThemeType, setInitialThemeTypeOnElement, changeThemeType } fr
 export { snackBarHandler } from './snackBar';
 export { setSpinnerActive } from './spinner';
 export { warningElementHandler } from './warningElement';
+export { scrollTopActivate } from './scrollTop';

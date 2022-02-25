@@ -1,20 +1,25 @@
 .snack-bar {
-  display: inline-flex;
+  display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  max-width: Min(350px, 90vw);
   position: fixed;
   top: -30%;
   left: 50%;
   transform: translateX(-50%);
-  border-radius: 0 0 6px 6px;
+  border-radius: 0 0 $radius $radius;
   background-color: var(--clr-ui);
-  padding: 10px;
+  padding: 1.2em 0.7em;
   transition: 0.6s;
   z-index: 50;
   box-shadow: $shadow-sm;
+  cursor: pointer;
 
   &__text {
     color: var(--clr-text);
+    line-height: 1.1;
+    text-align: center;
   }
 
   &--active {

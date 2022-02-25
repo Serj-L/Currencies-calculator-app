@@ -76,7 +76,7 @@ export const getSpecifedDateExchangeRates = async (date: Date): Promise<INbrbExc
 
     return extendedExchangeRates;
   } catch (error: any) {
-    snackBarHandler(error.message, 7000);
+    snackBarHandler(error.message, 10000);
   } finally {
     setSpinnerActive(false);
   }
