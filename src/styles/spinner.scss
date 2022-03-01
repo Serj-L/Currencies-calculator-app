@@ -8,9 +8,10 @@
     width: $spiner-size;
     aspect-ratio: 1;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    margin: -$spiner-size / 2 0 0 -$spiner-size / 2;
+    top: 50vh;
+    left: 50vw;
+    margin-top: -$spiner-size / 2;
+    margin-left: -$spiner-size / 2;
     animation: rotate 2s linear infinite;
   }
 
