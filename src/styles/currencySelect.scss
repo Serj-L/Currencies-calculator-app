@@ -1,0 +1,20 @@
+.currency-select {
+  width: max-content;
+  font-size: var(--fs-md);
+  color: var(--clr-text);
+  font-weight: $fw-bold;
+  background: var(--clr-bg-ui);
+  padding: 0.3em;
+  border: 2px solid transparent;
+  border-radius: $radius-input;
+  outline: none;
+  cursor: pointer;
+
+  &:focus-visible {
+    border-color: var(--clr-text);
+  }
+
+  @media (max-width: 440px) {
+    width: 100%;
+  }
+}

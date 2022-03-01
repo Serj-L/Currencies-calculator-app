@@ -1,5 +1,6 @@
 export { renderCurrenciesList } from './renderCurrenciesList';
 export { renderAddCurrencyList } from './renderAddCurrencyList';
+export { renderCurrencySelectOptionsList, changeCurrencySelectOptionsAttributes } from './renderCurrencySelectOptionsList';
 export { setDatePickerParams } from './datePicker';
 export { getCurrentThemeType, setInitialThemeTypeOnElement, changeThemeType } from './themeSwitcher';
 export { snackBarHandler } from './snackBar';

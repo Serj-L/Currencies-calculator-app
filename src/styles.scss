@@ -102,16 +102,12 @@ body {
     }
   }
 
-  &__base-currency-abbreviation {
-    font-weight: $fw-bold;
-  }
-
   &__currencies-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     justify-content: center;
     gap: 0.8em;
-    padding-block: 0.5em;
+    padding-block: 0.8em;
     list-style: none;
   }
   &__currencies-list-warning {
@@ -158,3 +154,4 @@ body {
 @import './styles/datePicker';
 @import './styles/addCurrencies';
 @import './styles/currencyCard';
+@import './styles/currencySelect';

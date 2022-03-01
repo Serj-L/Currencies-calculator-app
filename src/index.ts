@@ -17,6 +17,8 @@ import {
   changeThemeType,
   renderCurrenciesList,
   renderAddCurrencyList,
+  renderCurrencySelectOptionsList,
+  changeCurrencySelectOptionsAttributes,
   setDatePickerParams,
   warningElementHandler,
   snackBarHandler,
@@ -34,7 +36,7 @@ import './styles.scss';
 const themeAttributeElement = document.body;
 const changeThemeTypeBtn = document.getElementById('theme-switcher');
 const datePickerElement = document.getElementById('date-picker');
-const baseCurrencyAbbreviationElement = document.getElementById('base-currency-abbreviation');
+const baseCurrencySelectElement = document.getElementById('currency-select');
 const currenciesListElement = document.getElementById('currencies-list');
 const addCurrenciesBtnElement = document.getElementById('add-currencies-btn');
 const addCurrenciesFormElement = document.getElementById('add-currencies-form');
@@ -70,7 +72,7 @@ if (datePickerElement) {
 
 scrollTopActivate(300);
 
-// render currencies list
+// render currencies list and conrols elements lists (addCurrency available currencies list and currencySelect options)
 getSpecifedDateExchangeRates(currentDate)
   .then(currenciesDataFromAPI => {
     renderCurrenciesList({
@@ -83,6 +85,7 @@ getSpecifedDateExchangeRates(currentDate)
     if (currenciesDataFromAPI?.length) {
       currenciesData.push(...currenciesDataFromAPI);
       renderAddCurrencyList(currenciesData, userCurrenciesList);
+      renderCurrencySelectOptionsList(baseCurrencyAbbreviation, userCurrenciesList);
       additinalInfoElement?.classList.add('calculator__additional-info--active');
     } else {
       warningElementHandler({
@@ -145,7 +148,45 @@ function datePickerHandler(event: Event): void {
     });
 }
 const debouncedDatePickerHandler = debounce(datePickerHandler, 600);
-datePickerElement?.addEventListener('input', (event) => debouncedDatePickerHandler(event));
+datePickerElement?.addEventListener('input', (event: Event) => debouncedDatePickerHandler(event));
+
+// base currency select handler
+baseCurrencySelectElement?.addEventListener('change', (event: Event): void => {
+  const selectElement = event.target as HTMLSelectElement | null;
+
+  if (!selectElement) {
+    return;
+  }
+  const newBaseCurrencyAbbreviation = selectElement.value;
+  const baseCurrencyData = currenciesData.find(currency => currency.Cur_Abbreviation === newBaseCurrencyAbbreviation) as INbrbExchangeRatesExtendedData;
+  const currencyRateValueElements = document.querySelectorAll('[data-currency-rate-value]');
+  const currencyAmountInputs = document.querySelectorAll('[data-amount-input]');
+
+  currencyRateValueElements.forEach(currency => {
+    const currencyAbbreviation = currency.getAttribute('data-currency-abbreviation') as string;
+    const currencyData = currenciesData.find(currency => currency.Cur_Abbreviation === currencyAbbreviation) as INbrbExchangeRatesExtendedData;
+
+    currency.textContent = `1 ${currencyData.Cur_Abbreviation} = ${(currencyData.ratePerOneUnit / baseCurrencyData.ratePerOneUnit).toFixed(4)} ${newBaseCurrencyAbbreviation}`;
+  });
+
+  baseCurrencyAbbreviation = newBaseCurrencyAbbreviation;
+  changeCurrencySelectOptionsAttributes(baseCurrencyAbbreviation);
+  setDataToLocalStorage(LocalStorageKeys.MAIN, 'baseCurrencyAbbreviation', baseCurrencyAbbreviation);
+
+  // setting new base currency amount
+  currencyAmountInputs.forEach(input => {
+    const inputElement = input as HTMLInputElement;
+
+    if (inputElement.getAttribute('data-currency-abbreviation') !== baseCurrencyAbbreviation) {
+      return;
+    }
+
+    userCurrencyAmmount = inputElement.valueAsNumber;
+    setDataToLocalStorage(LocalStorageKeys.MAIN, 'currencyAmount', userCurrencyAmmount);
+  });
+
+  selectElement.blur();
+});
 
 // amount input handler + debouncer
 function currencyAmountInputHandler (event: Event): void {
@@ -171,10 +212,7 @@ function currencyAmountInputHandler (event: Event): void {
     });
 
     baseCurrencyAbbreviation = newBaseCurrencyAbbreviation;
-    if (baseCurrencyAbbreviationElement) {
-      baseCurrencyAbbreviationElement.textContent = baseCurrencyAbbreviation;
-    }
-
+    changeCurrencySelectOptionsAttributes(baseCurrencyAbbreviation);
     setDataToLocalStorage(LocalStorageKeys.MAIN, 'baseCurrencyAbbreviation', baseCurrencyAbbreviation);
   } else {
     baseCurrencyData = currenciesData.find(currency => currency.Cur_Abbreviation === baseCurrencyAbbreviation) as INbrbExchangeRatesExtendedData;
@@ -205,10 +243,10 @@ function currencyAmountInputHandler (event: Event): void {
   }, 3000);
 }
 const debouncedCurrencyAmountInputHandler = debounce(currencyAmountInputHandler, 400);
-currenciesListElement?.addEventListener('input', (event) => debouncedCurrencyAmountInputHandler(event));
+currenciesListElement?.addEventListener('input', (event: Event) => debouncedCurrencyAmountInputHandler(event));
 
 //add currencies open/close list button click handler
-addCurrenciesBtnElement?.addEventListener('click', () => {
+addCurrenciesBtnElement?.addEventListener('click', (): void => {
   addCurrenciesBtnElement.classList.toggle('add-currencies__btn--active');
   addCurrenciesListElement?.scrollTo(0, 0);
   addCurrenciesFormElement?.classList.toggle('add-currencies__form--active');
@@ -220,7 +258,7 @@ const closeAddCurrenciesList = (): void => {
   addCurrenciesBtnElement?.classList.remove('add-currencies__btn--active');
   addCurrenciesFormElement?.classList.remove('add-currencies__form--active');
 };
-// Esc key press handler
+// Escape key press handler
 document.body.addEventListener('keyup', (event: KeyboardEvent): void => {
   if (!addCurrenciesFormElement?.classList.contains('add-currencies__form--active')) {
     return;
@@ -263,7 +301,7 @@ document.body.addEventListener('click', (event: Event): void => {
 });
 
 //add currencies handler
-addCurrenciesFormElement?.addEventListener('submit', (event) => {
+addCurrenciesFormElement?.addEventListener('submit', (event: Event): void => {
   if (!event || !event.target) {
     return;
   }
@@ -291,11 +329,12 @@ addCurrenciesFormElement?.addEventListener('submit', (event) => {
     isClearListBeforeRender: false,
   });
   renderAddCurrencyList(currenciesData, userCurrenciesList);
+  renderCurrencySelectOptionsList(baseCurrencyAbbreviation, userCurrenciesList);
   setDataToLocalStorage(LocalStorageKeys.MAIN, 'currenciesList', updatedCurrenciesList);
 });
 
 // delete currency list item (card) from list button click handler
-currenciesListElement?.addEventListener('click', (event) => {
+currenciesListElement?.addEventListener('click', (event: Event): void => {
   if (!event) {
     return;
   }
@@ -330,13 +369,10 @@ currenciesListElement?.addEventListener('click', (event) => {
       currency.textContent = `1 ${currencyData.Cur_Abbreviation} = ${(currencyData.ratePerOneUnit / baseCurrencyData.ratePerOneUnit).toFixed(4)} ${baseCurrencyAbbreviation}`;
     });
 
-    if (baseCurrencyAbbreviationElement) {
-      baseCurrencyAbbreviationElement.textContent = baseCurrencyAbbreviation;
-    }
-
     setDataToLocalStorage(LocalStorageKeys.MAIN, 'baseCurrencyAbbreviation', baseCurrencyAbbreviation);
-
     userCurrencyAmmount = defaultAmmount;
     setDataToLocalStorage(LocalStorageKeys.MAIN, 'currencyAmount', userCurrencyAmmount);
   }
+
+  renderCurrencySelectOptionsList(baseCurrencyAbbreviation, userCurrenciesList);
 });
