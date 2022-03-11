@@ -73,7 +73,25 @@ export const renderCurrenciesList = (params: IRenderCurrenciesListParams): void 
     templateDeleteCurrencyButton.disabled = baseCurrencies.has(currency.Cur_Abbreviation);
     templateDeleteCurrencyButton.setAttribute('data-currency-abbreviation', `${currency.Cur_Abbreviation}`);
 
-    const currencyListItem = templateCurrencyListItem.cloneNode(true);
+    const currencyListItem = templateCurrencyListItem.cloneNode(true) as HTMLLIElement;
+    currencyListItem.setAttribute('data-currency-abbreviation', `${currency.Cur_Abbreviation}`);
+
+    if (currency.Cur_Abbreviation === baseCurrencyAbbreviation) {
+      currencyListItem.setAttribute('data-is-base-currency', 'true');
+    }
+
     currenciesListElement.appendChild(currencyListItem);
+  });
+};
+
+export const changeIsBaseCurrencyAttribute = (baseCurrencyAbbreviation: string): void => {
+  const currencyListItems = document.querySelectorAll('#currency-list-item');
+
+  currencyListItems.forEach(currencyListItem => {
+    if (currencyListItem.getAttribute('data-currency-abbreviation') === baseCurrencyAbbreviation) {
+      currencyListItem.setAttribute('data-is-base-currency', 'true');
+    } else {
+      currencyListItem.setAttribute('data-is-base-currency', 'false');
+    }
   });
 };

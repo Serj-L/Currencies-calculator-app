@@ -19,6 +19,7 @@ import {
   renderAddCurrencyList,
   renderCurrencySelectOptionsList,
   changeCurrencySelectOptionsAttributes,
+  changeIsBaseCurrencyAttribute,
   setDatePickerParams,
   warningElementHandler,
   snackBarHandler,
@@ -170,6 +171,7 @@ baseCurrencySelectElement?.addEventListener('change', (event: Event): void => {
   });
 
   baseCurrencyAbbreviation = newBaseCurrencyAbbreviation;
+  changeIsBaseCurrencyAttribute(baseCurrencyAbbreviation);
   changeCurrencySelectOptionsAttributes(baseCurrencyAbbreviation);
   setDataToLocalStorage(LocalStorageKeys.MAIN, 'baseCurrencyAbbreviation', baseCurrencyAbbreviation);
 
@@ -212,6 +214,7 @@ function currencyAmountInputHandler (event: Event): void {
     });
 
     baseCurrencyAbbreviation = newBaseCurrencyAbbreviation;
+    changeIsBaseCurrencyAttribute(baseCurrencyAbbreviation);
     changeCurrencySelectOptionsAttributes(baseCurrencyAbbreviation);
     setDataToLocalStorage(LocalStorageKeys.MAIN, 'baseCurrencyAbbreviation', baseCurrencyAbbreviation);
   } else {
@@ -359,6 +362,8 @@ currenciesListElement?.addEventListener('click', (event: Event): void => {
   // set base currency, curency amount to default values and recalculate exchange rates if removed currency is current base currency
   if (removedCurrencyAbbreviation === baseCurrencyAbbreviation) {
     baseCurrencyAbbreviation = defaultBaseCurrency;
+    changeIsBaseCurrencyAttribute(baseCurrencyAbbreviation);
+
     const currencyRateValueElements = document.querySelectorAll('[data-currency-rate-value]');
     const baseCurrencyData = currenciesData.find(currency => currency.Cur_Abbreviation === baseCurrencyAbbreviation) as INbrbExchangeRatesExtendedData;
 

@@ -1,4 +1,4 @@
-export { renderCurrenciesList } from './renderCurrenciesList';
+export { renderCurrenciesList, changeIsBaseCurrencyAttribute } from './renderCurrenciesList';
 export { renderAddCurrencyList } from './renderAddCurrencyList';
 export { renderCurrencySelectOptionsList, changeCurrencySelectOptionsAttributes } from './renderCurrencySelectOptionsList';
 export { setDatePickerParams } from './datePicker';

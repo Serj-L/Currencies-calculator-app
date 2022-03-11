@@ -6,8 +6,13 @@
   border-radius: $radius;
   box-shadow: $shadow-sm;
 
-  &:focus-within {
+  &:focus-within,
+  &[data-is-base-currency=true] {
     border-color: var(--clr-text);
+  }
+
+  &[data-is-base-currency=true]:not(:focus-within) {
+    border-style: dashed;
   }
 
   &__amount-wrapper {
