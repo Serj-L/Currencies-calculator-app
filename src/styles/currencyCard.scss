@@ -5,6 +5,29 @@
   border: 2px solid transparent;
   border-radius: $radius;
   box-shadow: $shadow-sm;
+  user-select: none;
+
+  &[data-dragging] {
+   visibility: hidden;
+   opacity: 0;
+   pointer-events: none;
+  }
+
+  &[data-dragging-clone] {
+    position: absolute;
+    top: var(--top, 0);
+    left: var(--left, 0);
+    width: 100%;
+    max-width: var(--max-width, 0);
+    opacity: 0.8;
+    transform: rotate(1deg);
+    transform-origin: bottom right;
+    transition: opacity $transition, transform $transition;
+  }
+
+  &[data-dragging-clone] &__drag-n-drop-anchor {
+    color: $clr-accent;
+  }
 
   &:focus-within,
   &[data-is-base-currency=true] {
@@ -40,10 +63,15 @@
     }
   }
 
-  &__currency-rate-wrapper {
+  &__rate-wrapper {
     display: flex;
     flex-wrap: wrap;
     gap: 0.2em;
+    padding-right: 1em;
+
+    @media (max-width: 430px), (min-width: 650px) and (max-width: 835px) {
+      flex-direction: column;
+    }
   }
 
   &__rate {
@@ -90,5 +118,40 @@
       border-color: $clr-warning;
     }
   }
-}
 
+  &__drag-n-drop-anchor {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 0.1em;
+    right: 0.1em;
+    width: 1.1em;
+    height: 1.1em;
+    font-size: $fs-lg;
+    font-weight: $fw-bold;
+    line-height: 1;
+    color: var(--clr-text);
+    cursor: grab;
+    transition: color $transition;
+
+    &::before,
+    &::after {
+      content: '-';
+      position: absolute;
+    }
+
+    &::before {
+      top: -0.2em;
+    }
+
+    &::after {
+      top: 0.2em;
+    }
+
+    &:hover {
+      @media (hover: hover) and (pointer: fine) {
+        color: $clr-accent;
+      }
+    }
+  }
+}

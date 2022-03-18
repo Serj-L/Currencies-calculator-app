@@ -105,7 +105,7 @@
   <!--templates -->
   <template id="template">
     <!-- currency list item (currency card) -->
-    <li class="currency-card" id="currency-list-item" data-currency-list-item>
+    <li class="currency-card" data-currency-list-item>
       <div class="currency-card__amount-wrapper">
         <span class="currency-card__label" data-amount-label>US Dollar (USD)</span>
         <input class="currency-card__input" type="number" name="ammount" placeholder="0.00" data-amount-input>
@@ -115,6 +115,7 @@
         <span class="currency-card__value" data-currency-rate-value>1 USD = 1 USD</span>
       </div>
     <button class="currency-card__delete-btn" data-delete-currency-btn>&times;</button>
+    <span class="currency-card__drag-n-drop-anchor" data-drag-n-drop-anchor>-</span>
   </li>
   </template>
 </body>

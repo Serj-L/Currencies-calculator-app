@@ -1,4 +1,7 @@
 .scroll-top {
+  position: fixed;
+  right: calc(2rem + var(--scrollBarWidth, 0px));
+  bottom: 2rem;
   visibility: hidden;
   opacity: 0;
   pointer-events: none;
@@ -11,9 +14,6 @@
   }
 
   &__button {
-    position: fixed;
-    right: 2rem;
-    bottom: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;

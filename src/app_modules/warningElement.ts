@@ -1,4 +1,4 @@
-interface warningElementHandlerParams {
+interface IWarningElementHandler {
   message: string,
   containerElement: HTMLElement | null,
   tagName: string,
@@ -6,14 +6,13 @@ interface warningElementHandlerParams {
   textTagClassName: string,
 }
 
-export const warningElementHandler = (params: warningElementHandlerParams): void => {
-  const { message,
-    containerElement,
-    tagName,
-    tagClassName,
-    textTagClassName,
-  } = params;
-
+export const warningElementHandler = ({
+  message,
+  containerElement,
+  tagName,
+  tagClassName,
+  textTagClassName,
+}: IWarningElementHandler): void => {
   if (!containerElement) {
     return;
   }

@@ -1,21 +1,42 @@
 import { INbrbExchangeRatesExtendedData } from '../types';
 
-const availableCurrenciesListElement = document.getElementById('available-currencies-list');
+interface IRenderAddCurrencyList {
+  addCurrenciesListElement: HTMLElement | null,
+  currenciesData: INbrbExchangeRatesExtendedData[],
+  userCurrenciesList: string[],
+}
 
-export const renderAddCurrencyList = (currenciesData: INbrbExchangeRatesExtendedData[], currenciesList: Set<string>): void => {
-  if (!availableCurrenciesListElement) {
+export const renderAddCurrencyList = ({
+  addCurrenciesListElement,
+  currenciesData,
+  userCurrenciesList,
+}: IRenderAddCurrencyList): void => {
+  if (!addCurrenciesListElement) {
     return;
   }
-  const availableCurrenciesListData = currenciesData.filter(currency => !currenciesList.has(currency.Cur_Abbreviation));
+  const availableCurrenciesListData = currenciesData.filter(currency => !userCurrenciesList.includes(currency.Cur_Abbreviation));
 
-  availableCurrenciesListElement.innerText = '';
+  addCurrenciesListElement.innerText = '';
 
   availableCurrenciesListData.forEach(currency => {
-    availableCurrenciesListElement.insertAdjacentHTML(
+    addCurrenciesListElement.insertAdjacentHTML(
       'beforeend',
       `<div class="add-currencies__checkbox-wrapper">
-        <input class="add-currencies__input" type="checkbox" id=${currency.Cur_ID}-${currency.Cur_Abbreviation} name=${currency.Cur_Abbreviation} data-add-currencies-checkbox>
-        <label class="add-currencies__label" id="add-currencies-label" for=${currency.Cur_ID}-${currency.Cur_Abbreviation} data-currency-abbreviation=${currency.Cur_Abbreviation}>${currency.Cur_Name_Eng} (${currency.Cur_Abbreviation})</label>
+        <input
+          class="add-currencies__input"
+          type="checkbox"
+          id=${currency.Cur_ID}-${currency.Cur_Abbreviation}
+          name=${currency.Cur_Abbreviation}
+          data-add-currencies-checkbox
+        >
+        <label
+          class="add-currencies__label"
+          for=${currency.Cur_ID}-${currency.Cur_Abbreviation}
+          data-add-currencies-label
+          data-currency-abbreviation=${currency.Cur_Abbreviation}
+        >
+          ${currency.Cur_Name_Eng} (${currency.Cur_Abbreviation})
+        </label>
       </div>`,
     );
   });

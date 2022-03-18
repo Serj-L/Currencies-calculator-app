@@ -38,6 +38,7 @@ body {
   font-size: $fs-md;
   color: var(--clr-text);
   background-color: var(--clr-bg);
+  list-style: none;
 }
 
 .header {
@@ -45,7 +46,8 @@ body {
   top: 0;
   width: 100%;
   background-color: var(--clr-bg-ui);
-  padding-inline: $vertical-padding;
+  padding-left: $vertical-padding;
+  padding-right: calc(#{$vertical-padding} + var(--scrollBarWidth, 0px));
   box-shadow: $shadow-sm;
   z-index: 2;
 
@@ -71,7 +73,7 @@ body {
   justify-content: center;
   flex: 1;
   width: 100%;
-  padding: 0.5em;
+  padding: 0.5em calc(0.5em + var(--scrollBarWidth, 0px)) 0.5em 0.5em;
 
 }
 
@@ -139,7 +141,7 @@ body {
   width: 100%;
   background-color: var(--clr-bg-ui);
   box-shadow: $shadow-negative-sm;
-  padding-block: 0.6em;
+  padding: 0.6em calc(#{$vertical-padding} + var(--scrollBarWidth, 0px)) 0.6em $vertical-padding;
   text-align: center;
 
   &__copyright {

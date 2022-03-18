@@ -1,8 +1,9 @@
 export { renderCurrenciesList, changeIsBaseCurrencyAttribute } from './renderCurrenciesList';
 export { renderAddCurrencyList } from './renderAddCurrencyList';
 export { renderCurrencySelectOptionsList, changeCurrencySelectOptionsAttributes } from './renderCurrencySelectOptionsList';
-export { setDatePickerParams } from './datePicker';
+export { dragNdropHandler } from './dragNdropReorderCurrenciesList';
 export { getCurrentThemeType, setInitialThemeTypeOnElement, changeThemeType } from './themeSwitcher';
+export { setDatePickerParams } from './datePicker';
 export { snackBarHandler } from './snackBar';
 export { setSpinnerActive } from './spinner';
 export { warningElementHandler } from './warningElement';

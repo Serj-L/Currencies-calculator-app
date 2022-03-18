@@ -1,38 +1,55 @@
-const currencySelectElement = document.getElementById('currency-select') as HTMLSelectElement | null;
+interface IChangeCurrencySelectOptionsAttributes {
+  baseCurrencySelectElement: HTMLSelectElement | null,
+  baseCurrencyAbbreviation: string,
+}
 
-export const renderCurrencySelectOptionsList = (baseCurrencyAbbreviation: string, currenciesList: Set<string>): void => {
-  if (!currencySelectElement) {
+interface IRrenderCurrencySelectOptionsList extends IChangeCurrencySelectOptionsAttributes {
+  userCurrenciesList: string[],
+}
+
+export const renderCurrencySelectOptionsList = ({
+  baseCurrencySelectElement,
+  baseCurrencyAbbreviation,
+  userCurrenciesList,
+}: IRrenderCurrencySelectOptionsList): void => {
+  if (!baseCurrencySelectElement) {
     return;
   }
 
-  currencySelectElement.innerText = '';
+  baseCurrencySelectElement.innerText = '';
 
-  currenciesList.forEach(currencyAbbreviation => {
-    currencySelectElement.insertAdjacentHTML(
+  userCurrenciesList.forEach(currencyAbbreviation => {
+    baseCurrencySelectElement.insertAdjacentHTML(
       'beforeend',
-      `<option value=${currencyAbbreviation} ${currencyAbbreviation === baseCurrencyAbbreviation ? 'selected disabled' : ''} data-currency-select-option>${currencyAbbreviation}</option>`,
+      `<option
+        value=${currencyAbbreviation} ${currencyAbbreviation === baseCurrencyAbbreviation ? 'selected disabled' : ''}
+        data-currency-select-option>${currencyAbbreviation}
+      </option>`,
     );
   });
 };
 
-export const changeCurrencySelectOptionsAttributes = (baseCurrencyAbbreviation: string): void => {
-  if (!currencySelectElement) {
+export const changeCurrencySelectOptionsAttributes = ({
+  baseCurrencySelectElement,
+  baseCurrencyAbbreviation,
+}: IChangeCurrencySelectOptionsAttributes): void => {
+  if (!baseCurrencySelectElement) {
     return;
   }
 
-  const selectOptions = document.querySelectorAll('[data-currency-select-option]');
+  const selectOptions = baseCurrencySelectElement.childNodes;
 
   selectOptions.forEach(option => {
     const optionElement = option as HTMLOptionElement;
 
     if (optionElement.value === baseCurrencyAbbreviation) {
-      option.setAttribute('selected','');
-      option.setAttribute('disabled','');
+      optionElement.setAttribute('selected','');
+      optionElement.setAttribute('disabled','');
     } else {
-      option.removeAttribute('selected');
-      option.removeAttribute('disabled');
+      optionElement.removeAttribute('selected');
+      optionElement.removeAttribute('disabled');
     }
   });
 
-  currencySelectElement.value = baseCurrencyAbbreviation;
+  baseCurrencySelectElement.value = baseCurrencyAbbreviation;
 };

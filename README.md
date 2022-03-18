@@ -6,7 +6,8 @@ Application features:
 - multiple currencies exchange rates calculation;
 - getting exchange rates on specified date (`date picker` element);
 - adding additional currencies (button `Add currencies`);
-- removing additional currencies (`X` icon in the currency informarion card)
+- removing additional currencies (`X` icon in the currency informarion card);
+- drag'n'drop reorder currencies list (icon in the right bottom corner of the currency informarion card).
 
 ## Author
 

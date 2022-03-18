@@ -1,6 +1,18 @@
 import { dateToStringConverter } from '../utils';
 
-export const setDatePickerParams = (datePickerElement: HTMLElement, date: Date, minDate?: Date, maxDate?: Date): void => {
+interface IDatePickerParams {
+  datePickerElement: HTMLElement | null,
+  date: Date,
+  minDate?: Date,
+  maxDate?: Date,
+}
+
+export const setDatePickerParams = ({
+  datePickerElement,
+  date,
+  minDate,
+  maxDate,
+}: IDatePickerParams): void => {
   if (!datePickerElement) {
     return;
   }
