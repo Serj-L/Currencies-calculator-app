@@ -24,8 +24,8 @@
 
     &--active > .add-currencies__icon {
       transform: rotate(45deg);
-      color: $clr-warning;
-      border-color: $clr-warning;
+      color: $clr-error;
+      border-color: $clr-error;
     }
   }
 

@@ -4,7 +4,7 @@ export { renderCurrencySelectOptionsList, changeCurrencySelectOptionsAttributes 
 export { dragNdropHandler } from './dragNdropReorderCurrenciesList';
 export { getCurrentThemeType, setInitialThemeTypeOnElement, changeThemeType } from './themeSwitcher';
 export { setDatePickerParams } from './datePicker';
-export { snackBarHandler } from './snackBar';
+export { SnackBar } from './snackBar';
 export { setSpinnerActive } from './spinner';
 export { warningElementHandler } from './warningElement';
 export { scrollTopActivate } from './scrollTop';

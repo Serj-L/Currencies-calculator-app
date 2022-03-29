@@ -1,27 +1,246 @@
 .snack-bar {
+  position: fixed;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 0.6em;
   max-width: Min(350px, 90vw);
-  position: fixed;
-  top: -30%;
-  left: 50%;
-  transform: translateX(-50%);
-  border-radius: 0 0 $radius $radius;
-  background-color: var(--clr-ui);
-  padding: 1.2em 0.7em;
-  transition: 0.6s;
-  z-index: 50;
-  box-shadow: $shadow-sm;
-  cursor: pointer;
+  padding: 0.5em;
+  perspective: 50em;
+  z-index: 9999;
 
-  &__text {
-    color: var(--clr-text);
-    line-height: 1.1;
-    text-align: center;
+  &[data-position^='top-'] {
+    top: 0;
   }
 
-  &--active {
-    top: 0;
+  &[data-position^='bottom-'] {
+    bottom: 0;
+  }
+
+  &[data-position$='-right'] {
+    right: 0;
+  }
+
+  &[data-position$='-left'] {
+    left: 0;
+  }
+
+  &__element {
+    --clr-snackBar-elements: #{$clr-accent};
+    --slide-animation-direction-converter: 1;
+    --animation-duration: 0.5s;
+
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
+    min-width: 250px;
+    border-radius: $radius;
+    background-color: var(--clr-ui);
+    padding: 1.2em;
+    box-shadow: $shadow-sm;
+    overflow: hidden;
+
+    &[data-position='top-center'] {
+      --slide-animation-direction-converter: -1;
+    }
+
+    &[data-position$='-left'] {
+      --slide-animation-direction-converter: -1;
+    }
+
+    &[data-is-active] {
+      &[data-animation='bounce'] {
+        &[data-position$='-center'] {
+          animation: verticalBounce var(--animation-duration) 2 alternate;
+        }
+        &[data-position$='-right'],
+        &[data-position$='-left'] {
+          animation: horizontalBounce var(--animation-duration) 2 alternate;
+        }
+      }
+
+      &[data-animation='slide'] {
+        &[data-position$='-center'] {
+          animation: verticalSlide var(--animation-duration) 2 alternate;
+        }
+        &[data-position$='-right'],
+        &[data-position$='-left'] {
+          animation: horizontalSlide var(--animation-duration) 2 alternate;
+        }
+      }
+
+      &[data-animation='zoom'] {
+        animation: zoom var(--animation-duration) 2 alternate;
+      }
+
+      &[data-animation='flip'] {
+        animation: flip var(--animation-duration) 2 alternate;
+      }
+    }
+
+    &[data-type='success'] {
+      --clr-snackBar-elements: #{$clr-success};
+    }
+
+    &[data-type='warning'] {
+      --clr-snackBar-elements: #{$clr-warning};
+    }
+
+    &[data-type='error'] {
+      --clr-snackBar-elements: #{$clr-error};
+    }
+
+    &[data-close-on-click='true'] {
+      cursor: pointer;
+
+      &:hover .snack-bar__close-icon {
+        @media (hover: hover) and (pointer: fine) {
+          color: $clr-error;
+        }
+      }
+    }
+
+    &[data-show-progress-bar='true']::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: calc(100% * var(--progress));
+      height: 6px;
+      background-color: var(--clr-snackBar-elements);
+    }
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    width: 1.2em;
+    height: 1.2em;
+    color: var(--clr-snackBar-elements);
+  }
+
+  &__message {
+    color: var(--clr-text);
+    line-height: 1.1;
+  }
+
+  &__close-icon {
+    display: block;
+    position: absolute;
+    top: 0.3em;
+    right: 0.3em;
+    font-size: $fs-lg;
+    font-weight: $fw-bold;
+    color: var(--clr-text);
+    line-height: 0.5;
+    transition: color $transition;
+    cursor: pointer;
+
+    &:hover {
+      @media (hover: hover) and (pointer: fine) {
+        color: $clr-error;
+      }
+    }
+  }
+}
+
+/* animation */
+@keyframes horizontalSlide {
+  0% {
+    transform: translateX(calc(150% * var(--slide-animation-direction-converter)));
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(calc(0 * var(--slide-animation-direction-converter)));
+  }
+}
+
+@keyframes horizontalBounce {
+  0% {
+    transform: translateX(calc(150% * var(--slide-animation-direction-converter)));
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(calc(-10% * var(--slide-animation-direction-converter)));
+  }
+  75% {
+    transform: translateX(calc(8% * var(--slide-animation-direction-converter)));
+  }
+  85% {
+    transform: translateX(calc(-2% * var(--slide-animation-direction-converter)));
+  }
+  100% {
+    transform: translateX(calc(0 * var(--slide-animation-direction-converter)));
+  }
+}
+
+@keyframes verticalSlide {
+  0% {
+    transform: translateY(calc(150% * var(--slide-animation-direction-converter)));
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(calc(0 * var(--slide-animation-direction-converter)));
+  }
+}
+
+@keyframes verticalBounce {
+  0% {
+    transform: translateY(calc(150% * var(--slide-animation-direction-converter)));
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(calc(-10% * var(--slide-animation-direction-converter)));
+  }
+  75% {
+    transform: translateY(calc(8% * var(--slide-animation-direction-converter)));
+  }
+  85% {
+    transform: translateY(calc(-2% * var(--slide-animation-direction-converter)));
+  }
+  100% {
+    transform: translateY(calc(0 * var(--slide-animation-direction-converter)));
+  }
+}
+
+@keyframes zoom {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes flip {
+  0% {
+    transform: rotate3d(1, 0, 0, 90deg);
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  65% {
+    transform: rotate3d(1, 0, 0, -50deg);
+  }
+  100% {
+    transform: rotate3d(1, 0, 0, 0deg);
   }
 }

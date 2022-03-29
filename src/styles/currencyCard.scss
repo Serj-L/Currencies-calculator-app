@@ -109,13 +109,13 @@
 
     &:hover {
       @media (hover: hover) and (pointer: fine) {
-        color: $clr-warning;
+        color: $clr-error;
       }
     }
 
     &:focus-visible {
-      color: $clr-warning;
-      border-color: $clr-warning;
+      color: $clr-error;
+      border-color: $clr-error;
     }
   }
 

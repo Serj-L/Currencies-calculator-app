@@ -23,7 +23,7 @@ import {
   setDatePickerParams,
   dragNdropHandler,
   warningElementHandler,
-  snackBarHandler,
+  SnackBar,
   scrollTopActivate,
 } from './app_modules';
 
@@ -55,6 +55,7 @@ const defaultAmmount = 10;
 let userCurrencyAmmount: number;
 let userCurrenciesList: string[];
 const currenciesData: INbrbExchangeRatesExtendedData[] = [];
+const snackBar = new SnackBar();
 
 /* Initial processes */
 initializedLocalStorageData(LocalStorageKeys.MAIN, {
@@ -128,12 +129,12 @@ function datePickerHandler(event: Event): void {
   if (minDate && date < minDate) {
     datePicker.value = dateToStringConverter(minDate);
     date = minDate;
-    snackBarHandler(`Entered date can't be earlier than ${datePicker.min}`, 10000);
+    snackBar.create(`Entered date can't be earlier than ${datePicker.min}`, { type: 'warning', position: 'top-center', autoClose: 10000 });
   }
   if (maxDate && date > maxDate) {
     datePicker.value = dateToStringConverter(maxDate);
     date = maxDate;
-    snackBarHandler(`Entered date can't be later than ${datePicker.max}`, 10000);
+    snackBar.create(`Entered date can't be later than ${datePicker.max}`, { type: 'warning', position: 'top-center', autoClose: 10000 });
   }
 
   getSpecifedDateExchangeRates(date)

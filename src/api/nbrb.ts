@@ -5,7 +5,7 @@ import {
 } from '../types';
 import {
   setSpinnerActive,
-  snackBarHandler,
+  SnackBar,
 } from '../app_modules';
 import { dateToStringConverter } from '../utils';
 
@@ -14,6 +14,7 @@ const NBRB_API_EXCHANGE_RATES_DATA_ENDPOINT_URL = `${NBRB_API_ENDPOINT_URL}/rate
 const NBRB_API_CURRENCIES_DATA_ENDPOINT_URL = `${NBRB_API_ENDPOINT_URL}/currencies/`;
 
 let cachedCurrenciesData: INbrbCurrenciesData[] = [];
+const snackBar = new SnackBar();
 
 export const getSpecifedDateNbrbExchangeRates = async (date: Date): Promise<INbrbExchangeRatesData[]> => {
   const response = await fetch(`${NBRB_API_EXCHANGE_RATES_DATA_ENDPOINT_URL}&ondate=${dateToStringConverter(date)}`);
@@ -76,7 +77,7 @@ export const getSpecifedDateExchangeRates = async (date: Date): Promise<INbrbExc
 
     return extendedExchangeRates;
   } catch (error: any) {
-    snackBarHandler(error.message, 10000);
+    snackBar.create(`${error.message}`, { type: 'error', position: 'top-center', autoClose: 10000 });
   } finally {
     setSpinnerActive(false);
   }
